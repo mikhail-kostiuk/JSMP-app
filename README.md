@@ -1,1 +1,1 @@
-JSMP-task-1
+JSMP-app
