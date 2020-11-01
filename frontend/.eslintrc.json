@@ -11,10 +11,11 @@
     "ecmaVersion": 12
   },
   "plugins": ["@typescript-eslint"],
-  "rules": {},
-  "overrides": [
-    {
-      "files": ["**/src/**/*"]
-    }
-  ]
+  "rules": {
+    "no-empty": "warn",
+    "no-debugger": "warn",
+    "no-unused-labels": "warn",
+    "no-useless-catch": "warn",
+    "no-octal": "warn"
+  }
 }
