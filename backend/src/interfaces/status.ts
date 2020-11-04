@@ -1,4 +1,4 @@
-import StatusState from '../constants/status-state';
+import StatusState from '../constants/statusState';
 
 interface Status {
   state: StatusState;

@@ -1,6 +1,6 @@
 import Task from '../interfaces/task';
 import Status from '../interfaces/status';
-import ChallengeState from '../constants/challenge-state';
+import ChallengeState from '../constants/challengeState';
 
 interface Challenge {
   id: string;

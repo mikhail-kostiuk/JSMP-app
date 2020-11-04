@@ -1,4 +1,4 @@
-import Status from '../interfaces/status';
+import Status from './status';
 
 interface ActualAchievement {
   id: string;

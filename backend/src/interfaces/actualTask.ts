@@ -1,5 +1,5 @@
-import Task from '../interfaces/task';
-import Status from '../interfaces/status';
+import Task from './task';
+import Status from './status';
 
 interface ActualTask extends Task {
   status: Status;
