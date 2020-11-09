@@ -1,0 +1,27 @@
+[
+  {
+    "id": "56a580b5-6864-47f6-a275-e8f4f2cf61aa",
+    "description": "Complete half of the tasks",
+    "image": "Image 1"
+  },
+  {
+    "id": "17318637-a159-4efd-80eb-4ed4261e5217",
+    "description": "Complete all tasks ",
+    "image": "Image 2"
+  },
+  {
+    "id": "0a819670-6363-4cad-9c5e-4b21596b9e19",
+    "description": "Complete each task 7 days in a row",
+    "image": "Image 3"
+  },
+  {
+    "id": "2af8577b-62f2-4860-956f-30630af5a80f",
+    "description": "Complete five tasks before 8:00 AM",
+    "image": "Image 4"
+  },
+  {
+    "id": "fc4ecbde-306d-4f04-b6c6-7dd0871048b8",
+    "description": "Complete 4 Monday's tasks",
+    "image": "Image 5"
+  }
+]

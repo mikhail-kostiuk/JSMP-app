@@ -9,6 +9,6 @@ import Status from '../interfaces/status';
 type CalculateAchievementsStatus = (
   achievements: Achievement[],
   tasksStatus: Status
-) => Status;
+) => Map<string, Status>;
 
 export default CalculateAchievementsStatus;

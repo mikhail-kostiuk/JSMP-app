@@ -1,5 +1,5 @@
 enum StatusState {
-  Pending = 'In progress',
+  Pending = 'Pending',
   Success = 'Success',
   Failure = 'Failure',
 }
