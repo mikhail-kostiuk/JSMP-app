@@ -13,7 +13,7 @@ function getTaskArchive(
     return null;
   }
 
-  return challenge.archiveTasks;
+  return challenge.tasksArchive;
 }
 
 export default getTaskArchive;

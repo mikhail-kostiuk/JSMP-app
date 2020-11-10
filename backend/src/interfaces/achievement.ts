@@ -5,7 +5,6 @@ interface Achievement {
   description: string;
   image: string;
   checkComplete?(): Status;
-  status?: Status;
 }
 
 export default Achievement;

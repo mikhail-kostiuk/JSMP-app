@@ -10,11 +10,11 @@ interface Challenge {
   state: ChallengeState;
   startDate: Date;
   tasksOrder: Task[];
-  tasksStatus: Status;
+  tasksStatus: Map<string, Status>;
+  tasksArchive?: ArchiveItem[];
   achievements?: Achievement[];
-  achievementsStatus: Status;
+  achievementsStatus: Map<string, Status>;
   actualAchievements?: ActualAchievement[];
-  archiveTasks?: ArchiveItem[];
 }
 
 export default Challenge;

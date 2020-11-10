@@ -1,10 +1,10 @@
-import Achievement from '../../interfaces/achievement';
+import ActualAchievement from '../../interfaces/actualAchievement';
 import Challenge from '../../interfaces/challenge';
 
 function getAchievements(
   challengeId: string,
   challenges: Challenge[]
-): Achievement[] | null {
+): ActualAchievement[] | null {
   const challenge: Challenge = challenges.find(
     (challenge) => challenge.id === challengeId
   );

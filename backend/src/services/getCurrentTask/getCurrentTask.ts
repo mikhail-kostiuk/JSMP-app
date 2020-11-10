@@ -11,7 +11,13 @@ function getCurrentTask(
   const challenge: Challenge = challenges.find(
     (challenge) => challenge.id === challengeId
   );
-  const dayOfChallenge = calculateDatesDifference(challenge.startDate, date);
+
+  if (!challenge) {
+    return null;
+  }
+
+  const dayOfChallenge =
+    calculateDatesDifference(challenge.startDate, date) + 1;
 
   return {
     ...challenge.tasksOrder[dayOfChallenge],
