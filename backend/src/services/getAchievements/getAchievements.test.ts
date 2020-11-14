@@ -1,13 +1,41 @@
 import getAchievements from './getAchievements';
 import challenges from '../../mocks/challenges';
-import actualAchievements from '../../mocks/actualAchievements';
+import { createActualAchievements } from '../../mocks/achievements';
 import ActualAchievement from '../../interfaces/actualAchievement';
+import achievements from '../../achievements.json';
 
 describe('getAchievements', () => {
-  it('should return a list of actual achievements', () => {
-    const expectedResult: ActualAchievement[] = [...actualAchievements];
+  it('should return a list of actual achievement with 0 accomplished achievements', () => {
+    const expectedResult: ActualAchievement[] = [
+      ...createActualAchievements(achievements, 0),
+    ];
+
     const actualResult: ActualAchievement[] = getAchievements(
       '8bd10917-47e3-429a-a925-9b77f2a498c9',
+      challenges
+    );
+
+    expect(actualResult).toEqual(expectedResult);
+  });
+
+  it('should return a list of actual achievement with 2 accomplished achievements', () => {
+    const expectedResult: ActualAchievement[] = [
+      ...createActualAchievements(achievements, 2),
+    ];
+    const actualResult: ActualAchievement[] = getAchievements(
+      '352a2632-5584-4ff6-8dbc-b5d430c0617f',
+      challenges
+    );
+
+    expect(actualResult).toEqual(expectedResult);
+  });
+
+  it('should return a list of actual achievement with 2 accomplished achievements', () => {
+    const expectedResult: ActualAchievement[] = [
+      ...createActualAchievements(achievements, 5),
+    ];
+    const actualResult: ActualAchievement[] = getAchievements(
+      'e8616afd-6511-4170-b4cb-323ff3057440',
       challenges
     );
 

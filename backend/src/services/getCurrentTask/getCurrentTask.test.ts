@@ -33,7 +33,7 @@ describe('getCurrentTask', () => {
 
   it('should return a task from correct position in a tasks order', () => {
     const date: Date = new Date('September 9, 2020 00:00:00');
-    const currentTask = getCurrentTask(
+    const currentTask: ActualTask = getCurrentTask(
       '8bd10917-47e3-429a-a925-9b77f2a498c9',
       challenges,
       date

@@ -1,110 +1,41 @@
 import achievements from '../achievements.json';
 import ChallengeState from '../constants/challengeState';
-import StatusState from '../constants/statusState';
-import Achievement from '../interfaces/achievement';
 import Challenge from '../interfaces/challenge';
-import Status from '../interfaces/status';
-import Task from '../interfaces/task';
 import tasks from '../tasks.json';
-import actualAchievements from './actualAchievements';
-import archivedItems from './archivedItems';
-import addDaysToDate from '../utils/addDaysToDate';
+import { createAchievementsStatus } from './achievements';
+import { createTasksStatus, createTasksArchive } from './tasks';
 
 const date = new Date('September 1, 2020 00:00:00');
 const challenges: Challenge[] = [
+  // The challenge in progress, day 5 of 30, none of the achievements accomplished
   {
     id: '8bd10917-47e3-429a-a925-9b77f2a498c9',
     state: ChallengeState.In_progress,
     startDate: date,
     tasksOrder: tasks,
-    tasksStatus: createTasksStatus(tasks, false, 5),
-    tasksArchive: archivedItems,
-    achievements: [...achievements].map((achievement: Achievement) => {
-      achievement.checkComplete = function () {
-        return { state: StatusState.Pending, updated: date };
-      };
-
-      return achievement;
-    }),
-    achievementsStatus: createAchievementsStatus(achievements),
-    actualAchievements,
+    tasksStatus: createTasksStatus(tasks, date, false, 5),
+    tasksArchive: createTasksArchive(tasks, date, false, 5),
+    achievementsStatus: createAchievementsStatus(achievements, 0),
   },
+  // The challenge finished, 2 achievements of 5 accomplished
   {
-    id: 'a4c0d2db-c245-4bfa-a73d-ac8fd82381b3',
-    state: ChallengeState.In_progress,
-    startDate: date,
-    tasksOrder: tasks,
-    tasksStatus: createTasksStatus(tasks, false, 5),
-    tasksArchive: archivedItems,
-    achievements: [...achievements].map((achievement: Achievement) => {
-      achievement.checkComplete = function () {
-        return { state: StatusState.Pending, updated: date };
-      };
-
-      return achievement;
-    }),
-    achievementsStatus: createAchievementsStatus(achievements),
-    actualAchievements,
-  },
-  {
-    id: 'a4c0d2db-c245-4bfa-a73d-ac8fd82381b3',
+    id: '352a2632-5584-4ff6-8dbc-b5d430c0617f',
     state: ChallengeState.Success,
     startDate: date,
     tasksOrder: tasks,
-    tasksStatus: createTasksStatus(tasks, true),
-    achievements: [...achievements].map((achievement: Achievement) => {
-      achievement.checkComplete = function () {
-        return { state: StatusState.Success, updated: date };
-      };
-
-      return achievement;
-    }),
-    achievementsStatus: createAchievementsStatus(achievements),
-    actualAchievements,
+    tasksStatus: createTasksStatus(tasks, date, true),
+    tasksArchive: createTasksArchive(tasks, date, true),
+    achievementsStatus: createAchievementsStatus(achievements, 2),
+  },
+  // The challenge finished, all 5 achievements accomplished
+  {
+    id: 'e8616afd-6511-4170-b4cb-323ff3057440',
+    state: ChallengeState.Success,
+    startDate: date,
+    tasksOrder: tasks,
+    tasksStatus: createTasksStatus(tasks, date, true),
+    achievementsStatus: createAchievementsStatus(achievements, 5),
   },
 ];
-
-function createTasksStatus(
-  tasks: Task[],
-  isChallengeCompleted: boolean,
-  dayOfChallenge?: number
-): Map<string, Status> {
-  const tasksStatus = new Map<string, Status>();
-  const activatedTasksCount = isChallengeCompleted
-    ? tasks.length
-    : dayOfChallenge;
-
-  for (let i = 0; i < activatedTasksCount; i++) {
-    const task = tasks[i];
-
-    tasksStatus.set(task.id, {
-      state: StatusState.Success,
-      updated: addDaysToDate(date, i + 1),
-    });
-  }
-
-  if (!isChallengeCompleted) {
-    tasksStatus.set(tasks[activatedTasksCount].id, {
-      state: StatusState.Pending,
-      updated: addDaysToDate(date, activatedTasksCount + 1),
-    });
-  }
-
-  return tasksStatus;
-}
-
-function createAchievementsStatus(achievements: Achievement[]) {
-  const date = new Date('September 1, 2020 00:00:00');
-  const achievementsStatus = new Map<string, Status>();
-
-  achievements.forEach((achievement) =>
-    achievementsStatus.set(achievement.id, {
-      state: StatusState.Pending,
-      updated: date,
-    })
-  );
-
-  return achievementsStatus;
-}
 
 export default challenges;

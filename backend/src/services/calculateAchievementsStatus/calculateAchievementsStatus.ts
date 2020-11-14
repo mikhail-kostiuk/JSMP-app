@@ -1,4 +1,3 @@
-import StatusState from '../../constants/statusState';
 import Achievement from '../../interfaces/achievement';
 import Status from '../../interfaces/status';
 
@@ -8,11 +7,8 @@ function calculateAchievementsStatus(
 ): Map<string, Status> {
   const map = new Map<string, Status>();
 
-  achievements.forEach((achievement) =>
-    map.set(achievement.description, {
-      state: StatusState.Pending,
-      updated: new Date(),
-    })
+  achievements.forEach((achievement: Achievement) =>
+    map.set(achievement.id, achievement.checkComplete(tasksStatus))
   );
 
   return map;
