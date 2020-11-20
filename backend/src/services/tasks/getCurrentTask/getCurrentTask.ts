@@ -1,7 +1,7 @@
-import ActualTask from '../../interfaces/actualTask';
-import Challenge from '../../interfaces/challenge';
-import StatusState from '../../constants/statusState';
-import calculateDatesDifference from '../../utils/calculateDatesDifference';
+import ActualTask from '../../../interfaces/actualTask';
+import Challenge from '../../../interfaces/challenge';
+import StatusState from '../../../constants/statusState';
+import calculateDatesDifference from '../../../utils/calculateDatesDifference';
 
 function getCurrentTask(
   challengeId: string,
@@ -20,7 +20,7 @@ function getCurrentTask(
     calculateDatesDifference(challenge.startDate, date) + 1;
 
   return {
-    ...challenge.tasksOrder[dayOfChallenge],
+    ...challenge.tasksOrder[dayOfChallenge - 1],
     status: { state: StatusState.Pending, updated: date },
   };
 }

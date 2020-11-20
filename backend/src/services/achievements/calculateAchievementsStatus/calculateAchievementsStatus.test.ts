@@ -2,11 +2,11 @@ import calculateAchievementsStatus from './calculateAchievementsStatus';
 import {
   createAchievements,
   createAchievementsStatus,
-} from '../../mocks/achievements';
-import { createTasksStatus } from '../../mocks/tasks';
-import achievements from '../../achievements.json';
-import tasks from '../../tasks.json';
-import Status from '../../interfaces/status';
+} from '../../../mocks/achievements';
+import { createTasksStatus } from '../../../mocks/tasks';
+import achievements from '../../../achievements.json';
+import tasks from '../../../tasks.json';
+import Status from '../../../interfaces/status';
 
 describe('calculateAchievementsStatus', () => {
   it('should return achievements status for the challenge', () => {
@@ -21,7 +21,7 @@ describe('calculateAchievementsStatus', () => {
       5
     );
     const actualResult: Map<string, Status> = calculateAchievementsStatus(
-      createAchievements(achievements),
+      createAchievements(achievements, date),
       tasksStatus
     );
 

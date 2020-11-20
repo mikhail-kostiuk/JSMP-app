@@ -1,13 +1,13 @@
 import { v4 as uuidv4 } from 'uuid';
 
-import Challenge from '../../interfaces/challenge';
-import Task from '../../interfaces/task';
-import StatusState from '../../constants/statusState';
-import ChallengeState from '../../constants/challengeState';
-import shuffleArray from '../../utils/shuffleArray';
-import Status from '../../interfaces/status';
-import Achievement from '../../interfaces/achievement';
-import calculateAchievementsStatus from '../calculateAchievementsStatus/calculateAchievementsStatus';
+import Challenge from '../../../interfaces/challenge';
+import Task from '../../../interfaces/task';
+import StatusState from '../../../constants/statusState';
+import ChallengeState from '../../../constants/challengeState';
+import shuffleArray from '../../../utils/shuffleArray';
+import Status from '../../../interfaces/status';
+import Achievement from '../../../interfaces/achievement';
+import calculateAchievementsStatus from '../../achievements/calculateAchievementsStatus/calculateAchievementsStatus';
 
 function startNewChallenge(
   tasks: Task[],

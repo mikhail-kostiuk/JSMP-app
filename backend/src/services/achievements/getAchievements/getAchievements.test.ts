@@ -1,8 +1,8 @@
 import getAchievements from './getAchievements';
-import challenges from '../../mocks/challenges';
-import { createActualAchievements } from '../../mocks/achievements';
-import ActualAchievement from '../../interfaces/actualAchievement';
-import achievements from '../../achievements.json';
+import challenges from '../../../mocks/challenges';
+import { createActualAchievements } from '../../../mocks/achievements';
+import ActualAchievement from '../../../interfaces/actualAchievement';
+import achievements from '../../../achievements.json';
 
 describe('getAchievements', () => {
   it('should return a list of actual achievement with 0 accomplished achievements', () => {

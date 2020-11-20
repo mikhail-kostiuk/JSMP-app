@@ -1,5 +1,5 @@
-import ArchiveItem from '../../interfaces/archiveItem';
-import Challenge from '../../interfaces/challenge';
+import ArchiveItem from '../../../interfaces/archiveItem';
+import Challenge from '../../../interfaces/challenge';
 
 function getTaskArchive(
   challengeId: string,
