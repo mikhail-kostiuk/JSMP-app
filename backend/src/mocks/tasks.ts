@@ -1,8 +1,8 @@
-import StatusState from '../constants/statusState';
-import ArchiveItem from '../interfaces/archiveItem';
-import Status from '../interfaces/status';
-import Task from '../interfaces/task';
-import addDaysToDate from '../utils/addDaysToDate';
+import { StatusState } from '../constants/statusState';
+import { ArchiveItem } from '../interfaces/archiveItem';
+import { Status } from '../interfaces/status';
+import { Task } from '../interfaces/task';
+import { addDaysToDate } from '../utils/addDaysToDate';
 
 export function createTasksArchive(
   tasks: Task[],

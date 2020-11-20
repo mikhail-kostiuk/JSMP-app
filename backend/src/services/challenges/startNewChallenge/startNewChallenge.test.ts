@@ -1,10 +1,10 @@
-import startNewChallenge from './startNewChallenge';
+import { startNewChallenge } from './startNewChallenge';
 import tasks from '../../../tasks.json';
 import achievements from '../../../achievements.json';
 import { createAchievements } from '../../../mocks/achievements';
-import ChallengeState from '../../../constants/challengeState';
-import StatusState from '../../../constants/statusState';
-import Challenge from '../../../interfaces/challenge';
+import { ChallengeState } from '../../../constants/challengeState';
+import { StatusState } from '../../../constants/statusState';
+import { Challenge } from '../../../interfaces/challenge';
 
 describe('startNewChallenge', () => {
   const date = new Date('September 1, 2020 00:00:00');

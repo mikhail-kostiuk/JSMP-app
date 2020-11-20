@@ -1,4 +1,4 @@
-import calculateAchievementsStatus from './calculateAchievementsStatus';
+import { calculateAchievementsStatus } from './calculateAchievementsStatus';
 import {
   createAchievements,
   createAchievementsStatus,
@@ -6,7 +6,7 @@ import {
 import { createTasksStatus } from '../../../mocks/tasks';
 import achievements from '../../../achievements.json';
 import tasks from '../../../tasks.json';
-import Status from '../../../interfaces/status';
+import { Status } from '../../../interfaces/status';
 
 describe('calculateAchievementsStatus', () => {
   it('should return achievements status for the challenge', () => {

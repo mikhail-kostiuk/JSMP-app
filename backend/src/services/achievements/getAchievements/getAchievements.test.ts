@@ -1,7 +1,7 @@
-import getAchievements from './getAchievements';
+import { getAchievements } from './getAchievements';
 import challenges from '../../../mocks/challenges';
 import { createActualAchievements } from '../../../mocks/achievements';
-import ActualAchievement from '../../../interfaces/actualAchievement';
+import { ActualAchievement } from '../../../interfaces/actualAchievement';
 import achievements from '../../../achievements.json';
 
 describe('getAchievements', () => {

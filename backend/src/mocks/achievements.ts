@@ -1,13 +1,13 @@
-import StatusState from '../constants/statusState';
-import ActualAchievement from '../interfaces/actualAchievement';
-import Achievement from '../interfaces/achievement';
-import Status from '../interfaces/status';
-import AchievementData from '../types/AchievementData';
+import { StatusState } from '../constants/statusState';
+import { ActualAchievement } from '../interfaces/actualAchievement';
+import { Achievement } from '../interfaces/achievement';
+import { Status } from '../interfaces/status';
+import { AchievementData } from '../types/AchievementData';
 
 export function createAchievements(
-  achievements: AchievementData[]
+  achievements: AchievementData[],
+  date: Date
 ): Achievement[] {
-  const date = new Date('September 1, 2020 00:00:00');
   return achievements.map((achievement: AchievementData) => ({
     ...achievement,
     checkComplete: function (): Status {

@@ -1,9 +1,9 @@
-import ActualTask from '../../../interfaces/actualTask';
-import Challenge from '../../../interfaces/challenge';
-import StatusState from '../../../constants/statusState';
-import calculateDatesDifference from '../../../utils/calculateDatesDifference';
+import { ActualTask } from '../../../interfaces/actualTask';
+import { Challenge } from '../../../interfaces/challenge';
+import { StatusState } from '../../../constants/statusState';
+import { calculateDatesDifference } from '../../../utils/calculateDatesDifference';
 
-function getCurrentTask(
+export function getCurrentTask(
   challengeId: string,
   challenges: Challenge[],
   date: Date
@@ -24,5 +24,3 @@ function getCurrentTask(
     status: { state: StatusState.Pending, updated: date },
   };
 }
-
-export default getCurrentTask;

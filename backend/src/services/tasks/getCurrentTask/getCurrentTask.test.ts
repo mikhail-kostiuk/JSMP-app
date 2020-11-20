@@ -1,6 +1,6 @@
-import getCurrentTask from './getCurrentTask';
-import ActualTask from '../../../interfaces/actualTask';
-import StatusState from '../../../constants/statusState';
+import { getCurrentTask } from './getCurrentTask';
+import { ActualTask } from '../../../interfaces/actualTask';
+import { StatusState } from '../../../constants/statusState';
 import challenges from '../../../mocks/challenges';
 import tasks from '../../../tasks.json';
 

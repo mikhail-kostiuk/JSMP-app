@@ -1,8 +1,6 @@
-import StatusState from '../constants/statusState';
+import { StatusState } from '../constants/statusState';
 
-interface Status {
+export interface Status {
   state: StatusState;
   updated: Date;
 }
-
-export default Status;

@@ -1,9 +1,9 @@
-import ActualAchievement from '../../../interfaces/actualAchievement';
-import Challenge from '../../../interfaces/challenge';
+import { ActualAchievement } from '../../../interfaces/actualAchievement';
+import { Challenge } from '../../../interfaces/challenge';
 import achievements from '../../../achievements.json';
-import AchievementData from '../../../types/AchievementData';
+import { AchievementData } from '../../../types/AchievementData';
 
-function getAchievements(
+export function getAchievements(
   challengeId: string,
   challenges: Challenge[]
 ): ActualAchievement[] | null {
@@ -31,5 +31,3 @@ function getAchievements(
 
   return actualAchievements;
 }
-
-export default getAchievements;

@@ -1,7 +1,7 @@
-import Achievement from '../../interfaces/achievement';
-import Status from '../../interfaces/status';
+import { Achievement } from '../../../interfaces/achievement';
+import { Status } from '../../../interfaces/status';
 
-function calculateAchievementsStatus(
+export function calculateAchievementsStatus(
   achievements: Achievement[],
   tasksStatus: Map<string, Status>
 ): Map<string, Status> {
@@ -13,5 +13,3 @@ function calculateAchievementsStatus(
 
   return map;
 }
-
-export default calculateAchievementsStatus;

@@ -1,5 +1,5 @@
-import Task from '../interfaces/task';
-import Challenge from '../interfaces/challenge';
+import { Task } from '../interfaces/task';
+import { Challenge } from '../interfaces/challenge';
 
 /**
  * Returns a new challenge
@@ -9,11 +9,9 @@ import Challenge from '../interfaces/challenge';
  * @param achievements The number of achievements
  * @returns The new challange
  */
-type StartNewChallenge = (
+export type StartNewChallenge = (
   tasks: Task[],
   challenges: Challenge[],
   duration: number,
   achievements: number
 ) => Challenge;
-
-export default StartNewChallenge;

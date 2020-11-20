@@ -1,10 +1,8 @@
-import Status from '../interfaces/status';
+import { Status } from '../interfaces/status';
 
-interface Achievement {
+export interface Achievement {
   id: string;
   description: string;
   image: string;
   checkComplete(tasksStatus: Map<string, Status>): Status;
 }
-
-export default Achievement;
