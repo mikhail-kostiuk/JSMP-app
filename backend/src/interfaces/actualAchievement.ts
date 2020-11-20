@@ -1,9 +1,7 @@
+import Achievement from './achievement';
 import Status from './status';
 
-interface ActualAchievement {
-  id: string;
-  description: string;
-  image: string;
+interface ActualAchievement extends Omit<Achievement, 'checkComplete'> {
   status: Status;
 }
 

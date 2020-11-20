@@ -4,7 +4,7 @@ interface Achievement {
   id: string;
   description: string;
   image: string;
-  checkComplete(): Status;
+  checkComplete(tasksStatus: Map<string, Status>): Status;
 }
 
 export default Achievement;

@@ -6,7 +6,7 @@
   "scripts": {
     "build": "webpack --config webpack.prod.js",
     "start": "webpack serve --config webpack.dev.js",
-    "lint": "concurrently \"eslint src/**/*.{ts,js}\" \"prettier src/**/*.{ts,js,scss,sass} --write\"",
+    "lint": "concurrently \"eslint src\" \"prettier src/**/*.{ts,js,scss,sass} --write\"",
     "test": "jest"
   },
   "husky": {
