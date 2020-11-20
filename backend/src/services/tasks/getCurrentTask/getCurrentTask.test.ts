@@ -1,7 +1,7 @@
 import { getCurrentTask } from './getCurrentTask';
 import { ActualTask } from '../../../interfaces/actualTask';
 import { StatusState } from '../../../constants/statusState';
-import challenges from '../../../mocks/challenges';
+import { challenges } from '../../../mocks/challenges/challenges';
 import tasks from '../../../tasks.json';
 
 describe('getCurrentTask', () => {

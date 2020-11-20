@@ -1,7 +1,7 @@
 import { startNewChallenge } from './startNewChallenge';
 import tasks from '../../../tasks.json';
 import achievements from '../../../achievements.json';
-import { createAchievements } from '../../../mocks/achievements';
+import { createAchievements } from '../../../mocks/achievements/createAchievements';
 import { ChallengeState } from '../../../constants/challengeState';
 import { StatusState } from '../../../constants/statusState';
 import { Challenge } from '../../../interfaces/challenge';

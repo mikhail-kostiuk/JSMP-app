@@ -1,6 +1,6 @@
 import { getAchievements } from './getAchievements';
-import challenges from '../../../mocks/challenges';
-import { createActualAchievements } from '../../../mocks/achievements';
+import { challenges } from '../../../mocks/challenges/challenges';
+import { createActualAchievements } from '../../../mocks/achievements/createActualAchievements';
 import { ActualAchievement } from '../../../interfaces/actualAchievement';
 import achievements from '../../../achievements.json';
 

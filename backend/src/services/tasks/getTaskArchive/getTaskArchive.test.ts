@@ -1,6 +1,6 @@
 import { getTaskArchive } from './getTaskArchive';
-import { createTasksArchive } from '../../../mocks/tasks';
-import challenges from '../../../mocks/challenges';
+import { createTasksArchive } from '../../../mocks/tasks/createTasksArchive';
+import { challenges } from '../../../mocks/challenges/challenges';
 import tasks from '../../../tasks.json';
 import { ArchiveItem } from '../../../interfaces/archiveItem';
 

@@ -1,9 +1,7 @@
 import { calculateAchievementsStatus } from './calculateAchievementsStatus';
-import {
-  createAchievements,
-  createAchievementsStatus,
-} from '../../../mocks/achievements';
-import { createTasksStatus } from '../../../mocks/tasks';
+import { createAchievements } from '../../../mocks/achievements/createAchievements';
+import { createAchievementsStatus } from '../../../mocks/achievements/createAchievementsStatus';
+import { createTasksStatus } from '../../../mocks/tasks/createTasksStatus';
 import achievements from '../../../achievements.json';
 import tasks from '../../../tasks.json';
 import { Status } from '../../../interfaces/status';
