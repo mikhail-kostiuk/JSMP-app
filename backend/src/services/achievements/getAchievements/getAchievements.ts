@@ -2,14 +2,12 @@ import { ActualAchievement } from '../../../interfaces/actualAchievement';
 import { Challenge } from '../../../interfaces/challenge';
 import achievements from '../../../achievements.json';
 import { AchievementData } from '../../../types/AchievementData';
+import { getChallenge } from '../../challenges/getChallenge/getChallenge';
 
 export function getAchievements(
-  challengeId: string,
-  challenges: Challenge[]
+  challengeId: string
 ): ActualAchievement[] | null {
-  const challenge: Challenge = challenges.find(
-    (challenge) => challenge.id === challengeId
-  );
+  const challenge: Challenge = getChallenge(challengeId);
 
   if (!challenge) {
     return null;
