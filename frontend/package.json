@@ -9,11 +9,6 @@
     "lint": "concurrently \"eslint src\" \"prettier src/**/*.{ts,js,scss,sass} --write\"",
     "test": "jest"
   },
-  "husky": {
-    "hooks": {
-      "pre-commit": "concurrently \"npm run lint\" \"npm run test\""
-    }
-  },
   "keywords": [],
   "author": "",
   "license": "ISC",
@@ -35,5 +30,8 @@
     "webpack": "^5.2.0",
     "webpack-cli": "^4.1.0",
     "webpack-dev-server": "^3.11.0"
+  },
+  "dependencies": {
+    "socket.io-client": "^3.0.3"
   }
 }
