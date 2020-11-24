@@ -3,10 +3,13 @@ import { Challenge } from '../../../interfaces/challenge';
 import { Status } from '../../../interfaces/status';
 import { Task } from '../../../interfaces/task';
 import { User } from '../../../interfaces/user';
+import { createAchievements } from '../../../mocks/achievements/createAchievements';
 import { calculateDatesDifference } from '../../../utils/calculateDatesDifference';
+import { calculateAchievementsStatus } from '../../achievements/calculateAchievementsStatus/calculateAchievementsStatus';
 import { getChallenge } from '../../challenges/getChallenge/getChallenge';
 import { updateChallenge } from '../../challenges/updateChallenge/updateChallenge';
 import { getUser } from '../../users/getUser/getUser';
+import achievements from '../../../achievements.json';
 
 export function completeCurrentTask(statusState: StatusState): void {
   const user: User = getUser();
@@ -27,10 +30,15 @@ export function completeCurrentTask(statusState: StatusState): void {
       ...currentTask,
       status: newStatus,
     });
+    challenge.achievementsStatus = calculateAchievementsStatus(
+      createAchievements(achievements, new Date()),
+      challenge.tasksStatus
+    );
 
     updateChallenge(challenge.id, {
       tasksStatus: challenge.tasksStatus,
       tasksArchive: challenge.tasksArchive,
+      achievementsStatus: challenge.achievementsStatus,
     });
   }
 }
