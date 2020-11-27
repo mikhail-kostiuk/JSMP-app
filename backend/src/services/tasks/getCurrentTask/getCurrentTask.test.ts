@@ -1,14 +1,14 @@
-import getCurrentTask from './getCurrentTask';
-import ActualTask from '../../interfaces/actualTask';
-import StatusState from '../../constants/statusState';
-import challenges from '../../mocks/challenges';
-import tasks from '../../tasks.json';
+import { getCurrentTask } from './getCurrentTask';
+import { ActualTask } from '../../../interfaces/actualTask';
+import { StatusState } from '../../../constants/statusState';
+import { challenges } from '../../../mocks/challenges/challenges';
+import tasks from '../../../tasks.json';
 
 describe('getCurrentTask', () => {
   it('should return a current task with its status ', () => {
     const date: Date = new Date('September 5, 2020 00:00:00');
     const expectedResult: ActualTask = {
-      ...tasks[5],
+      ...tasks[4],
       status: { state: StatusState.Pending, updated: date },
     };
     const actualResult: ActualTask = getCurrentTask(
@@ -38,7 +38,7 @@ describe('getCurrentTask', () => {
       challenges,
       date
     );
-    const expectedResult = 9;
+    const expectedResult = 8;
     const actualResult: number = challenges[0].tasksOrder.findIndex(
       (task) => task.id === currentTask.id
     );

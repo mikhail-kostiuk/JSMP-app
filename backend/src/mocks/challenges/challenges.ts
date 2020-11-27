@@ -1,12 +1,14 @@
-import achievements from '../achievements.json';
-import ChallengeState from '../constants/challengeState';
-import Challenge from '../interfaces/challenge';
-import tasks from '../tasks.json';
-import { createAchievementsStatus } from './achievements';
-import { createTasksStatus, createTasksArchive } from './tasks';
+import achievements from '../../achievements.json';
+import tasks from '../../tasks.json';
+import { ChallengeState } from '../../constants/challengeState';
+import { Challenge } from '../../interfaces/challenge';
+import { createAchievementsStatus } from '../achievements/createAchievementsStatus';
+import { createTasksStatus } from '../tasks/createTasksStatus';
+import { createTasksArchive } from '../tasks/createTasksArchive';
 
 const date = new Date('September 1, 2020 00:00:00');
-const challenges: Challenge[] = [
+
+export const challenges: Challenge[] = [
   // The challenge in progress, day 5 of 30, none of the achievements accomplished
   {
     id: '8bd10917-47e3-429a-a925-9b77f2a498c9',
@@ -37,5 +39,3 @@ const challenges: Challenge[] = [
     achievementsStatus: createAchievementsStatus(achievements, 5),
   },
 ];
-
-export default challenges;

@@ -1,15 +1,13 @@
-import ActualAchievement from '../../interfaces/actualAchievement';
-import Challenge from '../../interfaces/challenge';
-import achievements from '../../achievements.json';
-import AchievementData from '../../types/AchievementData';
+import { ActualAchievement } from '../../../interfaces/actualAchievement';
+import { Challenge } from '../../../interfaces/challenge';
+import achievements from '../../../achievements.json';
+import { AchievementData } from '../../../types/AchievementData';
+import { getChallenge } from '../../challenges/getChallenge/getChallenge';
 
-function getAchievements(
-  challengeId: string,
-  challenges: Challenge[]
+export function getAchievements(
+  challengeId: string
 ): ActualAchievement[] | null {
-  const challenge: Challenge = challenges.find(
-    (challenge) => challenge.id === challengeId
-  );
+  const challenge: Challenge = getChallenge(challengeId);
 
   if (!challenge) {
     return null;
@@ -31,5 +29,3 @@ function getAchievements(
 
   return actualAchievements;
 }
-
-export default getAchievements;

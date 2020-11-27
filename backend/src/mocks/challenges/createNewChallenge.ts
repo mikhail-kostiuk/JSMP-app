@@ -1,15 +1,15 @@
-import { v4 as uuidv4 } from 'uuid';
+import { ChallengeState } from '../../constants/challengeState';
+import { StatusState } from '../../constants/statusState';
+import { Achievement } from '../../interfaces/achievement';
+import { Challenge } from '../../interfaces/challenge';
+import { Status } from '../../interfaces/status';
+import { Task } from '../../interfaces/task';
+import { calculateAchievementsStatus } from '../../services/achievements/calculateAchievementsStatus/calculateAchievementsStatus';
+import { shuffleArray } from '../../utils/shuffleArray';
 
-import Challenge from '../../interfaces/challenge';
-import Task from '../../interfaces/task';
-import StatusState from '../../constants/statusState';
-import ChallengeState from '../../constants/challengeState';
-import shuffleArray from '../../utils/shuffleArray';
-import Status from '../../interfaces/status';
-import Achievement from '../../interfaces/achievement';
-import calculateAchievementsStatus from '../calculateAchievementsStatus/calculateAchievementsStatus';
-
-function startNewChallenge(
+export function createNewChallenge(
+  id: string,
+  startDate: Date,
   tasks: Task[],
   duration = 30,
   achievements: Achievement[],
@@ -31,9 +31,9 @@ function startNewChallenge(
   });
 
   return {
-    id: uuidv4(),
+    id,
     state: ChallengeState.In_progress,
-    startDate: new Date(),
+    startDate,
     tasksOrder: shuffledTasks.slice(0, 30),
     tasksStatus: tasksStatus,
     achievementsStatus: calculateAchievementsStatus(
@@ -42,5 +42,3 @@ function startNewChallenge(
     ),
   };
 }
-
-export default startNewChallenge;

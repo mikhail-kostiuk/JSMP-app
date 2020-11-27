@@ -1,7 +1,7 @@
-import ArchiveItem from '../../interfaces/archiveItem';
-import Challenge from '../../interfaces/challenge';
+import { ArchiveItem } from '../../../interfaces/archiveItem';
+import { Challenge } from '../../../interfaces/challenge';
 
-function getTaskArchive(
+export function getTaskArchive(
   challengeId: string,
   challenges: Challenge[]
 ): ArchiveItem[] | null {
@@ -15,5 +15,3 @@ function getTaskArchive(
 
   return challenge.tasksArchive;
 }
-
-export default getTaskArchive;

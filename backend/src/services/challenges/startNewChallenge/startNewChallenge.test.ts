@@ -1,18 +1,19 @@
-import startNewChallenge from './startNewChallenge';
-import tasks from '../../tasks.json';
-import achievements from '../../achievements.json';
-import { createAchievements } from '../../mocks/achievements';
-import ChallengeState from '../../constants/challengeState';
-import StatusState from '../../constants/statusState';
-import Challenge from '../../interfaces/challenge';
+import { startNewChallenge } from './startNewChallenge';
+import tasks from '../../../tasks.json';
+import achievements from '../../../achievements.json';
+import { createAchievements } from '../../../mocks/achievements/createAchievements';
+import { ChallengeState } from '../../../constants/challengeState';
+import { StatusState } from '../../../constants/statusState';
+import { Challenge } from '../../../interfaces/challenge';
 
 describe('startNewChallenge', () => {
+  const date = new Date('September 1, 2020 00:00:00');
   test("the new challenge should have state 'in progress'", () => {
     const expectedResult: ChallengeState = ChallengeState.In_progress;
     const actualResult: ChallengeState = startNewChallenge(
       tasks,
       30,
-      createAchievements(achievements),
+      createAchievements(achievements, date),
       5
     ).state;
 
@@ -24,7 +25,7 @@ describe('startNewChallenge', () => {
     const actualResult: number = startNewChallenge(
       tasks,
       30,
-      createAchievements(achievements),
+      createAchievements(achievements, date),
       5
     ).tasksOrder.length;
 
@@ -35,7 +36,7 @@ describe('startNewChallenge', () => {
     const newChallenge: Challenge = startNewChallenge(
       tasks,
       30,
-      createAchievements(achievements),
+      createAchievements(achievements, date),
       5
     );
     const expectedResult: StatusState[] = new Array(30).fill(
