@@ -1,13 +1,23 @@
 import { Request, Response } from 'express';
 
 import { startNewChallenge } from '../services/challenges/startNewChallenge/startNewChallenge';
-import tasks from '../tasks.json';
 import achievements from '../achievements.json';
 import { createAchievements } from '../mocks/achievements/createAchievements';
 import { Challenge } from '../interfaces/challenge';
+import { getTasks } from '../services/tasks/getTasks/getTasks';
+import { TaskDocument } from '../types/TaskDocument';
 
-export function createNewChallenge(req: Request, res: Response): Response {
-  const challenge: Challenge = startNewChallenge(
+export async function createNewChallenge(
+  req: Request,
+  res: Response
+): Promise<Response> {
+  const taskDocuments: TaskDocument[] = await getTasks();
+  const tasks = taskDocuments.map((document) => ({
+    id: document.id,
+    description: document.description,
+  }));
+
+  const challenge: Challenge = await startNewChallenge(
     tasks,
     30,
     createAchievements(achievements, new Date()),
