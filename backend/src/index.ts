@@ -12,8 +12,11 @@ import { scheduleCurrentTaskComplition } from './jobs/scheduleCurrentTaskComplit
 import { completeCurrentTask } from './services/tasks/completeCurrentTask/completeCurrentTask';
 import { getAchievements } from './services/achievements/getAchievements/getAchievements';
 import { ActualAchievement } from './interfaces/actualAchievement';
+import { connect } from './utils/db';
+import config from './config.json';
 
-const PORT = 3000;
+connect();
+
 const app: Application = express();
 
 app.use(cors());
@@ -44,6 +47,6 @@ io.on('connect', (socket) => {
 scheduleCurrentTaskComplition();
 scheduleCurrentChallengeComplition();
 
-server.listen(PORT, () => {
-  console.log(`Example app listening at http://localhost:${PORT}`);
+server.listen(config.SERVER.PORT, () => {
+  console.log(`Example app listening at http://localhost:${config.SERVER.PORT}`);
 });
