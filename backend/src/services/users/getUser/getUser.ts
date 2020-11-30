@@ -1,10 +1,14 @@
 import { User } from '../../../interfaces/user';
+import { UserDocument } from '../../../interfaces/userDocument';
+import { UserModel } from '../../../models/User';
 
-export function getUser(): User {
+export async function getUser(email: string): Promise<User> {
   // TODO: Actually query db
+  const userDocument: UserDocument = await UserModel.findOne({ email });
+
   return {
-    name: 'React Angularov',
-    email: 'react.angularov@gmail.com',
-    activeChallengeId: '8bd10917-47e3-429a-a925-9b77f2a498c9',
+    name: userDocument.name,
+    email: userDocument.email,
+    password: userDocument.password,
   };
 }

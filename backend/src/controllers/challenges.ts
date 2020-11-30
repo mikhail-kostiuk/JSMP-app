@@ -13,7 +13,7 @@ export async function createNewChallenge(
 ): Promise<Response> {
   const taskDocuments: TaskDocument[] = await getTasks();
   const tasks = taskDocuments.map((document) => ({
-    id: document.id,
+    _id: document._id,
     description: document.description,
   }));
 
@@ -24,5 +24,5 @@ export async function createNewChallenge(
     5
   );
 
-  return res.json(challenge.id);
+  return res.json(challenge._id);
 }

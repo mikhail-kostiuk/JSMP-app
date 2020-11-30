@@ -1,10 +1,9 @@
-import { Schema, model } from 'mongoose';
+import { Schema, model, Types } from 'mongoose';
 
-import { TaskDocument } from '../types/TaskDocument';
+import { TaskDocument } from '../interfaces/taskDocument';
 
-export const TaskModel = model<TaskDocument>(
-  'Task',
-  new Schema({
-    description: { type: String },
-  })
-);
+const TaskSchema: Schema = new Schema({
+  description: { type: String },
+});
+
+export const TaskModel = model<TaskDocument>('Task', TaskSchema);

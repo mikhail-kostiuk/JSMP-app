@@ -4,7 +4,7 @@ import { ChallengeState } from '../constants/challengeState';
 import { ArchiveItem } from './archiveItem';
 
 export interface Challenge {
-  id: string;
+  readonly _id: string;
   state: ChallengeState;
   startDate: Date;
   tasksOrder: Task[];

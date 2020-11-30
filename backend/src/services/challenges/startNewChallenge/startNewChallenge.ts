@@ -8,7 +8,7 @@ import { shuffleArray } from '../../../utils/shuffleArray';
 import { Status } from '../../../interfaces/status';
 import { Achievement } from '../../../interfaces/achievement';
 import { ChallengeModel } from '../../../models/Challenge';
-import { ChallengeDocument } from '../../../types/ChallengeDocument';
+import { ChallengeDocument } from '../../../interfaces/challengeDocument';
 
 export async function startNewChallenge(
   tasks: Task[],
@@ -16,6 +16,8 @@ export async function startNewChallenge(
   achievements: Achievement[],
   achievementsNumber: number = Math.floor(duration / 6)
 ): Promise<Challenge> {
+  console.log(tasks);
+
   const currentDate = new Date();
   const shuffledTasks: Task[] = shuffleArray([...tasks]);
   const tasksStatus = new Map<string, Status>();
@@ -25,7 +27,7 @@ export async function startNewChallenge(
   ].slice(0, achievementsNumber);
 
   shuffledTasks.forEach((task: Task): void => {
-    tasksStatus.set(task.id, {
+    tasksStatus.set(task._id.toString(), {
       state: StatusState.Pending,
       updated: currentDate,
     });
@@ -40,18 +42,20 @@ export async function startNewChallenge(
     });
   });
 
-  const challenge = {
-    id: uuidv4(),
+  const challengeDocument: ChallengeDocument = await ChallengeModel.create({
     state: ChallengeState.In_progress,
     startDate: currentDate,
     tasksOrder: shuffledTasks.slice(0, 30),
     tasksStatus: tasksStatus,
     achievementsStatus,
+  });
+
+  return {
+    _id: challengeDocument._id,
+    state: challengeDocument.state,
+    startDate: challengeDocument.startDate,
+    tasksOrder: challengeDocument.tasksOrder,
+    tasksStatus: challengeDocument.tasksStatus,
+    achievementsStatus: challengeDocument.achievementsStatus,
   };
-
-  const challengeDocument: ChallengeDocument = await ChallengeModel.create(
-    challenge
-  );
-
-  return { ...challenge, id: challengeDocument.id };
 }

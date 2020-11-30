@@ -11,21 +11,31 @@ import { updateChallenge } from '../../challenges/updateChallenge/updateChalleng
 import { getUser } from '../../users/getUser/getUser';
 import achievements from '../../../achievements.json';
 
-export function completeCurrentTask(statusState: StatusState): void {
-  const user: User = getUser();
-  const challenge: Challenge = getChallenge(user.activeChallengeId);
+export async function completeCurrentTask(
+  email: string,
+  statusState: StatusState
+): Promise<void> {
+  const user: User = await getUser(email);
+  console.log('completeCurrentTask');
+
+  const challenge: Challenge = await getChallenge(user.activeChallengeId);
+
+  if (!challenge) {
+    return;
+  }
+
   const currentDate: Date = new Date();
   const dayOfChallenge: number =
     calculateDatesDifference(challenge.startDate, currentDate) + 1;
   const currentTask: Task = challenge.tasksOrder[dayOfChallenge - 1];
-  const currentTaskStatus: Status = challenge.tasksStatus.get(currentTask.id);
+  const currentTaskStatus: Status = challenge.tasksStatus.get(currentTask._id);
 
   if (currentTaskStatus.state === StatusState.Pending) {
     const newStatus: Status = {
       state: statusState,
       updated: currentDate,
     };
-    challenge.tasksStatus.set(currentTask.id, newStatus);
+    challenge.tasksStatus.set(currentTask._id, newStatus);
     challenge.tasksArchive.push({
       ...currentTask,
       status: newStatus,
@@ -35,7 +45,7 @@ export function completeCurrentTask(statusState: StatusState): void {
       challenge.tasksStatus
     );
 
-    updateChallenge(challenge.id, {
+    updateChallenge(challenge._id, {
       tasksStatus: challenge.tasksStatus,
       tasksArchive: challenge.tasksArchive,
       achievementsStatus: challenge.achievementsStatus,

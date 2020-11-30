@@ -2,25 +2,26 @@ import { ActualTask } from '../../../interfaces/actualTask';
 import { Challenge } from '../../../interfaces/challenge';
 import { StatusState } from '../../../constants/statusState';
 import { calculateDatesDifference } from '../../../utils/calculateDatesDifference';
+import { ChallengeModel } from '../../../models/Challenge';
+import { ChallengeDocument } from '../../../interfaces/challengeDocument';
 
-export function getCurrentTask(
-  challengeId: string,
-  challenges: Challenge[],
-  date: Date
-): ActualTask | null {
-  const challenge: Challenge = challenges.find(
-    (challenge) => challenge.id === challengeId
+export async function getCurrentTask(
+  challengeId: string
+): Promise<ActualTask | null> {
+  const challenge: ChallengeDocument = await ChallengeModel.findById(
+    challengeId
   );
 
   if (!challenge) {
     return null;
   }
 
+  const currentDate = new Date();
   const dayOfChallenge =
-    calculateDatesDifference(challenge.startDate, date) + 1;
+    calculateDatesDifference(challenge.startDate, currentDate) + 1;
 
   return {
     ...challenge.tasksOrder[dayOfChallenge - 1],
-    status: { state: StatusState.Pending, updated: date },
+    status: { state: StatusState.Pending, updated: currentDate },
   };
 }

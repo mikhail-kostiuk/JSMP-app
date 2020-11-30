@@ -1,8 +1,10 @@
 import { createServer } from 'http';
 import express, { Application } from 'express';
 import cors from 'cors';
-import { Server } from 'socket.io';
+import { Server, Socket } from 'socket.io';
+import passport from 'passport';
 
+import authRouter from './routes/auth';
 import tasksRouter from './routes/tasks';
 import challengesRouter from './routes/challenges';
 import achievementsRouter from './routes/achievements';
@@ -14,13 +16,21 @@ import { getAchievements } from './services/achievements/getAchievements/getAchi
 import { ActualAchievement } from './interfaces/actualAchievement';
 import { connect } from './utils/db';
 import config from './config.json';
+import { setupPassport } from './auth/auth';
 
 connect();
 
 const app: Application = express();
 
+setupPassport();
+
 app.use(cors());
-app.use('/api/tasks', tasksRouter);
+app.use('/api/auth', authRouter);
+app.use(
+  '/api/tasks',
+  passport.authenticate('jwt', { session: false }),
+  tasksRouter
+);
 app.use('/api/challenges', challengesRouter);
 app.use('/api/achievements', achievementsRouter);
 
@@ -32,21 +42,28 @@ const io = new Server(server, {
   },
 });
 
-io.on('connect', (socket) => {
+io.on('connect', (socket: Socket): void => {
   console.log('Client connected');
 
-  socket.on('task_completed', (challengeId) => {
-    completeCurrentTask(StatusState.Success);
+  socket.on(
+    'task_completed',
+    async (challengeId: string): Promise<void> => {
+      await completeCurrentTask(config.USER.EMAIL, StatusState.Success);
 
-    const achievements: ActualAchievement[] = getAchievements(challengeId);
+      const achievements: ActualAchievement[] = await getAchievements(
+        challengeId
+      );
 
-    socket.emit('update_achievements', achievements);
-  });
+      socket.emit('update_achievements', achievements);
+    }
+  );
 });
 
-scheduleCurrentTaskComplition();
-scheduleCurrentChallengeComplition();
+scheduleCurrentTaskComplition(config.USER.EMAIL);
+scheduleCurrentChallengeComplition(config.USER.EMAIL);
 
 server.listen(config.SERVER.PORT, () => {
-  console.log(`Example app listening at http://localhost:${config.SERVER.PORT}`);
+  console.log(
+    `Example app listening at http://localhost:${config.SERVER.PORT}`
+  );
 });

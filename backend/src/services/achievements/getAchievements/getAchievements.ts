@@ -4,10 +4,10 @@ import achievements from '../../../achievements.json';
 import { AchievementData } from '../../../types/AchievementData';
 import { getChallenge } from '../../challenges/getChallenge/getChallenge';
 
-export function getAchievements(
+export async function getAchievements(
   challengeId: string
-): ActualAchievement[] | null {
-  const challenge: Challenge = getChallenge(challengeId);
+): Promise<ActualAchievement[] | null> {
+  const challenge: Challenge = await getChallenge(challengeId);
 
   if (!challenge) {
     return null;

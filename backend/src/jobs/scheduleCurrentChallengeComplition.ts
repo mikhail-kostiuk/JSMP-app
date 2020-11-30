@@ -8,14 +8,28 @@ import { addDaysToDate } from '../utils/addDaysToDate';
 import { updateChallenge } from '../services/challenges/updateChallenge/updateChallenge';
 import { ChallengeState } from '../constants/challengeState';
 
-export function scheduleCurrentChallengeComplition(): void {
-  const user: User = getUser();
-  const challenge: Challenge = getChallenge(user.activeChallengeId);
+export async function scheduleCurrentChallengeComplition(
+  email: string
+): Promise<void> {
+  const user: User = await getUser(email);
+
+  if (!user || !user.activeChallengeId) {
+    return;
+  }
+
+  const challenge: Challenge = await getChallenge(user.activeChallengeId);
+
+  if (!challenge) {
+    return;
+  }
   const challengeEndDate: Date = addDaysToDate(challenge.startDate, 30);
 
-  schedule.scheduleJob(challengeEndDate, () => {
-    const user: User = getUser();
-    const challenge: Challenge = getChallenge(user.activeChallengeId);
-    updateChallenge(challenge.id, { state: ChallengeState.Success });
-  });
+  schedule.scheduleJob(
+    challengeEndDate,
+    async (): Promise<void> => {
+      const user: User = await getUser(email);
+      const challenge: Challenge = await getChallenge(user.activeChallengeId);
+      updateChallenge(challenge._id, { state: ChallengeState.Success });
+    }
+  );
 }

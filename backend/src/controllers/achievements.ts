@@ -3,13 +3,13 @@ import { Request, Response } from 'express';
 import { ActualAchievement } from '../interfaces/actualAchievement';
 import { getAchievements } from '../services/achievements/getAchievements/getAchievements';
 
-export function getAchievementsByChallengeId(
+export async function getAchievementsByChallengeId(
   req: Request,
   res: Response
-): Response {
+): Promise<Response> {
   const { challengeId } = req.params;
 
-  const achievements: ActualAchievement[] = getAchievements(challengeId);
+  const achievements: ActualAchievement[] = await getAchievements(challengeId);
 
   return res.json(achievements);
 }

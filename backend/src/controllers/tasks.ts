@@ -7,22 +7,20 @@ import { ArchiveItem } from '../interfaces/archiveItem';
 
 export function getTaskByChallengeId(req: Request, res: Response): Response {
   const { challengeId } = req.params;
-  const challenges = getChallenges();
   const date = new Date('September 1, 2020 00:00:00');
 
-  const currentTask = getCurrentTask(challengeId, challenges, date);
+  const currentTask = getCurrentTask(challengeId);
 
   return res.json(currentTask);
 }
 
-export function getTaskArchiveByChallengeId(
+export async function getTaskArchiveByChallengeId(
   req: Request,
   res: Response
-): Response {
+): Promise<Response> {
   const { challengeId } = req.params;
-  const challenges = getChallenges();
 
-  const taskArchive: ArchiveItem[] = getTaskArchive(challengeId, challenges);
+  const taskArchive: ArchiveItem[] = await getTaskArchive(challengeId);
 
   return res.json(taskArchive);
 }
