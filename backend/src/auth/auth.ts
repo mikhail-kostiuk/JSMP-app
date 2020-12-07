@@ -1,12 +1,13 @@
 import passport from 'passport';
+
 import { Strategy as LocalStrategy } from 'passport-local';
 import { Strategy as JWTstrategy, ExtractJwt } from 'passport-jwt';
 import { UserDocument } from '../interfaces/userDocument';
 import { UserModel } from '../models/User';
+import config from '../config.json';
 
 export function setupPassport(): void {
   passport.use(
-    'login',
     new LocalStrategy(
       {
         usernameField: 'email',
@@ -14,17 +15,25 @@ export function setupPassport(): void {
       },
       async (email, password, done): Promise<void> => {
         try {
-          const user: UserDocument = await UserModel.findOne({ email });
+          const userDocument: UserDocument = await UserModel.findOne({ email });
 
-          if (!user) {
+          if (!userDocument) {
             return done(null, false, { message: 'User not found' });
           }
 
-          const validate: boolean = await user.isValidPassword(password);
+          const validate: boolean = await userDocument.isValidPassword(
+            password
+          );
 
           if (!validate) {
             return done(null, false, { message: 'Wrong Password' });
           }
+
+          const user = {
+            _id: userDocument._id,
+            email: userDocument.email,
+            name: userDocument.name,
+          };
 
           return done(null, user, { message: 'Logged in Successfully' });
         } catch (error) {
@@ -37,8 +46,8 @@ export function setupPassport(): void {
   passport.use(
     new JWTstrategy(
       {
-        secretOrKey: 'TOP_SECRET',
-        jwtFromRequest: ExtractJwt.fromUrlQueryParameter('secret_token'),
+        secretOrKey: config.JWT.SECRET,
+        jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken(),
       },
       async (token, done): Promise<void> => {
         try {

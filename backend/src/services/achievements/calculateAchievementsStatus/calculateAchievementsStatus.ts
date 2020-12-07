@@ -8,7 +8,7 @@ export function calculateAchievementsStatus(
   const map = new Map<string, Status>();
 
   achievements.forEach((achievement: Achievement) =>
-    map.set(achievement.id, achievement.checkComplete(tasksStatus))
+    map.set(achievement._id, achievement.checkComplete(tasksStatus))
   );
 
   return map;

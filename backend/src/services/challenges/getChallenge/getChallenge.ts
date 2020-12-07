@@ -1,16 +1,8 @@
-import achievements from '../../../achievements.json';
-import tasks from '../../../tasks.json';
-import { ChallengeState } from '../../../constants/challengeState';
 import { Challenge } from '../../../interfaces/challenge';
-import { createAchievementsStatus } from '../../../mocks/achievements/createAchievementsStatus';
-import { createTasksStatus } from '../../../mocks/tasks/createTasksStatus';
-import { createTasksArchive } from '../../../mocks/tasks/createTasksArchive';
 import { ChallengeDocument } from '../../../interfaces/challengeDocument';
 import { ChallengeModel } from '../../../models/Challenge';
 
 export async function getChallenge(challengeId: string): Promise<Challenge> {
-  console.log(challengeId);
-
   const challengeDocument: ChallengeDocument = await ChallengeModel.findById(
     challengeId
   );
@@ -22,6 +14,7 @@ export async function getChallenge(challengeId: string): Promise<Challenge> {
     tasksOrder: challengeDocument.tasksOrder,
     tasksStatus: challengeDocument.tasksStatus,
     tasksArchive: challengeDocument.tasksArchive,
+    achievements: challengeDocument.achievements,
     achievementsStatus: challengeDocument.achievementsStatus,
   };
 }

@@ -3,10 +3,12 @@ import { Schema, model } from 'mongoose';
 import { AchievementDocument } from '../interfaces/achievementDocument';
 
 const AchievementSchema: Schema = new Schema({
-  description: { type: String },
+  description: String,
+  image: String,
+  isMandatory: Boolean,
 });
 
-export const Achievement = model<AchievementDocument>(
+export const AchievementModel = model<AchievementDocument>(
   'Achievement',
   AchievementSchema
 );

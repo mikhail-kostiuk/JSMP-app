@@ -1,10 +1,11 @@
 import { Types } from 'mongoose';
 
 import { Challenge } from '../../../interfaces/challenge';
+import { ChallengeModel } from '../../../models/Challenge';
 
-export function updateChallenge(
+export async function updateChallenge(
   challengeId: string | Types.ObjectId,
   fieldsToUpdate: Partial<Challenge>
-) {
-  // TODO: Actually update the db record
+): Promise<void> {
+  await ChallengeModel.updateOne({ _id: challengeId }, fieldsToUpdate);
 }

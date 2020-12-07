@@ -1,7 +1,7 @@
 import { Request, Response } from 'express';
 
 import { ActualAchievement } from '../interfaces/actualAchievement';
-import { getAchievements } from '../services/achievements/getAchievements/getAchievements';
+import { getActualAchievements } from '../services/achievements/getActualAchievements/getActualAchievements';
 
 export async function getAchievementsByChallengeId(
   req: Request,
@@ -9,7 +9,9 @@ export async function getAchievementsByChallengeId(
 ): Promise<Response> {
   const { challengeId } = req.params;
 
-  const achievements: ActualAchievement[] = await getAchievements(challengeId);
+  const achievements: ActualAchievement[] = await getActualAchievements(
+    challengeId
+  );
 
   return res.json(achievements);
 }

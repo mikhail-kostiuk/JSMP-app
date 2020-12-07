@@ -1,5 +1,3 @@
-import { v4 as uuidv4 } from 'uuid';
-
 import { Challenge } from '../../../interfaces/challenge';
 import { Task } from '../../../interfaces/task';
 import { StatusState } from '../../../constants/statusState';
@@ -16,15 +14,9 @@ export async function startNewChallenge(
   achievements: Achievement[],
   achievementsNumber: number = Math.floor(duration / 6)
 ): Promise<Challenge> {
-  console.log(tasks);
-
   const currentDate = new Date();
   const shuffledTasks: Task[] = shuffleArray([...tasks]);
   const tasksStatus = new Map<string, Status>();
-  const randomAchievements: Achievement[] = [
-    ...achievements.slice(0, 2),
-    ...shuffleArray(achievements.slice(2)),
-  ].slice(0, achievementsNumber);
 
   shuffledTasks.forEach((task: Task): void => {
     tasksStatus.set(task._id.toString(), {
@@ -33,10 +25,26 @@ export async function startNewChallenge(
     });
   });
 
+  const mandatoryAchievements: Achievement[] = [];
+  const regularAchievements: Achievement[] = [];
+
+  achievements.forEach((achievement: Achievement): void => {
+    if (achievement.isMandatory) {
+      mandatoryAchievements.push(achievement);
+    } else {
+      regularAchievements.push(achievement);
+    }
+  });
+
+  const randomAchievements: Achievement[] = [
+    ...mandatoryAchievements,
+    ...shuffleArray(regularAchievements),
+  ].slice(0, achievementsNumber);
+
   const achievementsStatus = new Map<string, Status>();
 
   randomAchievements.forEach((achievement) => {
-    achievementsStatus.set(achievement.id, {
+    achievementsStatus.set(achievement._id, {
       state: StatusState.Pending,
       updated: currentDate,
     });
@@ -47,6 +55,7 @@ export async function startNewChallenge(
     startDate: currentDate,
     tasksOrder: shuffledTasks.slice(0, 30),
     tasksStatus: tasksStatus,
+    achievements: randomAchievements,
     achievementsStatus,
   });
 
@@ -56,6 +65,7 @@ export async function startNewChallenge(
     startDate: challengeDocument.startDate,
     tasksOrder: challengeDocument.tasksOrder,
     tasksStatus: challengeDocument.tasksStatus,
+    achievements: challengeDocument.achievements,
     achievementsStatus: challengeDocument.achievementsStatus,
   };
 }

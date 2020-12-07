@@ -1,21 +1,18 @@
-import { Schema, model, Types } from 'mongoose';
+import { Schema, model } from 'mongoose';
 
 import { ChallengeDocument } from '../interfaces/challengeDocument';
 
 const ChallengeSchema: Schema = new Schema({
   state: String,
   startDate: Date,
-  tasksOrder: [{ type: Types.ObjectId, ref: 'Task' }],
+  tasksOrder: [{ _id: String, description: String }],
   tasksStatus: {
     type: Map,
-    of: {
-      state: String,
-      updated: Date,
-    },
+    of: Schema.Types.Mixed,
   },
   tasksArchive: [
     {
-      id: String,
+      _id: String,
       description: String,
       status: {
         state: String,
@@ -23,12 +20,12 @@ const ChallengeSchema: Schema = new Schema({
       },
     },
   ],
+  achievements: [
+    { _id: String, description: String, image: String, isMandatory: Boolean },
+  ],
   achievementsStatus: {
     type: Map,
-    of: {
-      state: String,
-      updated: Date,
-    },
+    of: Schema.Types.Mixed,
   },
 });
 

@@ -4,10 +4,10 @@ import { hash, compare } from 'bcrypt';
 import { UserDocument } from '../interfaces/userDocument';
 
 const UserSchema: Schema = new Schema({
-  name: { type: String },
+  name: String,
   email: { type: String, unique: true },
-  password: { type: String },
-  activeChallengeId: { type: String },
+  password: String,
+  activeChallengeId: String,
 });
 
 UserSchema.pre('save', async function (

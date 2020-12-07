@@ -1,5 +1,4 @@
 import { ArchiveItem } from '../../../interfaces/archiveItem';
-import { Challenge } from '../../../interfaces/challenge';
 import { ChallengeDocument } from '../../../interfaces/challengeDocument';
 import { ChallengeModel } from '../../../models/Challenge';
 
