@@ -1,12 +1,12 @@
 import { ArchiveItem } from '../../../interfaces/archiveItem';
-import { Challenge } from '../../../interfaces/challenge';
+import { ChallengeDocument } from '../../../interfaces/challengeDocument';
+import { ChallengeModel } from '../../../models/Challenge';
 
-export function getTaskArchive(
-  challengeId: string,
-  challenges: Challenge[]
-): ArchiveItem[] | null {
-  const challenge: Challenge = challenges.find(
-    (challenge) => challenge.id === challengeId
+export async function getTaskArchive(
+  challengeId: string
+): Promise<ArchiveItem[] | null> {
+  const challenge: ChallengeDocument = await ChallengeModel.findById(
+    challengeId
   );
 
   if (!challenge) {

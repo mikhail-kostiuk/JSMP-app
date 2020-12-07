@@ -1,5 +1,3 @@
-import { v4 as uuidv4 } from 'uuid';
-
 import { Challenge } from '../../../interfaces/challenge';
 import { Task } from '../../../interfaces/task';
 import { StatusState } from '../../../constants/statusState';
@@ -7,38 +5,67 @@ import { ChallengeState } from '../../../constants/challengeState';
 import { shuffleArray } from '../../../utils/shuffleArray';
 import { Status } from '../../../interfaces/status';
 import { Achievement } from '../../../interfaces/achievement';
-import { calculateAchievementsStatus } from '../../achievements/calculateAchievementsStatus/calculateAchievementsStatus';
+import { ChallengeModel } from '../../../models/Challenge';
+import { ChallengeDocument } from '../../../interfaces/challengeDocument';
 
-export function startNewChallenge(
+export async function startNewChallenge(
   tasks: Task[],
   duration = 30,
   achievements: Achievement[],
   achievementsNumber: number = Math.floor(duration / 6)
-): Challenge {
+): Promise<Challenge> {
   const currentDate = new Date();
   const shuffledTasks: Task[] = shuffleArray([...tasks]);
   const tasksStatus = new Map<string, Status>();
-  const randomAchievements: Achievement[] = [
-    ...achievements.slice(0, 2),
-    ...shuffleArray(achievements.slice(2)),
-  ].slice(0, achievementsNumber);
 
   shuffledTasks.forEach((task: Task): void => {
-    tasksStatus.set(task.id, {
+    tasksStatus.set(task._id.toString(), {
       state: StatusState.Pending,
       updated: currentDate,
     });
   });
 
-  return {
-    id: uuidv4(),
+  const mandatoryAchievements: Achievement[] = [];
+  const regularAchievements: Achievement[] = [];
+
+  achievements.forEach((achievement: Achievement): void => {
+    if (achievement.isMandatory) {
+      mandatoryAchievements.push(achievement);
+    } else {
+      regularAchievements.push(achievement);
+    }
+  });
+
+  const randomAchievements: Achievement[] = [
+    ...mandatoryAchievements,
+    ...shuffleArray(regularAchievements),
+  ].slice(0, achievementsNumber);
+
+  const achievementsStatus = new Map<string, Status>();
+
+  randomAchievements.forEach((achievement) => {
+    achievementsStatus.set(achievement._id, {
+      state: StatusState.Pending,
+      updated: currentDate,
+    });
+  });
+
+  const challengeDocument: ChallengeDocument = await ChallengeModel.create({
     state: ChallengeState.In_progress,
-    startDate: new Date(),
+    startDate: currentDate,
     tasksOrder: shuffledTasks.slice(0, 30),
     tasksStatus: tasksStatus,
-    achievementsStatus: calculateAchievementsStatus(
-      randomAchievements,
-      tasksStatus
-    ),
+    achievements: randomAchievements,
+    achievementsStatus,
+  });
+
+  return {
+    _id: challengeDocument._id,
+    state: challengeDocument.state,
+    startDate: challengeDocument.startDate,
+    tasksOrder: challengeDocument.tasksOrder,
+    tasksStatus: challengeDocument.tasksStatus,
+    achievements: challengeDocument.achievements,
+    achievementsStatus: challengeDocument.achievementsStatus,
   };
 }

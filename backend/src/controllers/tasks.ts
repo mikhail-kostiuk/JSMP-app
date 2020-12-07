@@ -1,28 +1,32 @@
 import { Request, Response } from 'express';
 
 import { getCurrentTask } from '../services/tasks/getCurrentTask/getCurrentTask';
-import { getChallenges } from '../services/challenges/getChallenges/getChallenges';
 import { getTaskArchive } from '../services/tasks/getTaskArchive/getTaskArchive';
 import { ArchiveItem } from '../interfaces/archiveItem';
+import { User } from '../interfaces/user';
+import { getUser } from '../services/users/getUser/getUser';
+import { ActualTask } from '../interfaces/actualTask';
 
-export function getTaskByChallengeId(req: Request, res: Response): Response {
-  const { challengeId } = req.params;
-  const challenges = getChallenges();
-  const date = new Date('September 1, 2020 00:00:00');
+export async function getUserCurrentTask(
+  req: Request,
+  res: Response
+): Promise<Response> {
+  const reqUser = req.user as Omit<User, 'password'>;
 
-  const currentTask = getCurrentTask(challengeId, challenges, date);
+  const user: User = await getUser(reqUser.email);
+
+  const currentTask: ActualTask = await getCurrentTask(user.activeChallengeId);
 
   return res.json(currentTask);
 }
 
-export function getTaskArchiveByChallengeId(
+export async function getTaskArchiveByChallengeId(
   req: Request,
   res: Response
-): Response {
+): Promise<Response> {
   const { challengeId } = req.params;
-  const challenges = getChallenges();
 
-  const taskArchive: ArchiveItem[] = getTaskArchive(challengeId, challenges);
+  const taskArchive: ArchiveItem[] = await getTaskArchive(challengeId);
 
   return res.json(taskArchive);
 }
