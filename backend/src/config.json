@@ -1,9 +1,9 @@
 {
   "SERVER": {
-    "PORT": 3000
+    "PORT": 5050
   },
   "CLIENT": {
-    "PORT": 9000
+    "PORT": 3000
   },
   "DB": {
     "MONGO_URI": "mongodb://localhost:27017/jsmp"
