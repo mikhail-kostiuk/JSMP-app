@@ -8,14 +8,27 @@ import {
   Center,
 } from '@chakra-ui/react';
 import { useForm } from 'react-hook-form';
+import { Action } from 'redux';
+import { connect } from 'react-redux';
+import { ThunkDispatch } from 'redux-thunk';
+
+import { login } from '../../store/auth/actions';
+import { RootState } from '../../store/reducer';
 import { LoginData } from '../../types/auth';
 
-const Login: React.FC = () => {
+type LoginProps = {
+  login: (loginData: LoginData) => void;
+};
+
+const Login: React.FC<LoginProps> = (props) => {
   const { register, handleSubmit, errors } = useForm<LoginData>();
 
-  const onSubmit = (data: LoginData) => console.log(data);
+  const onSubmit = (data: LoginData) => {
+    console.log('submit');
+    console.log(props);
 
-  console.log(errors);
+    props.login(data);
+  };
 
   return (
     <Center h="calc(100vh - 60px)">
@@ -54,4 +67,10 @@ const Login: React.FC = () => {
   );
 };
 
-export default Login;
+const mapDispatchToProps = (
+  dispatch: ThunkDispatch<RootState, unknown, Action<string>>
+) => ({
+  login: (loginData: LoginData) => dispatch(login(loginData)),
+});
+
+export default connect(null, mapDispatchToProps)(Login);

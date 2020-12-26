@@ -1,5 +1,6 @@
-const storeName: string = 'AUTH';
-const actionTypes: Object = {
-  LOGIN: `${storeName}.LOGIN`,
+const storeName = 'AUTH';
+const actionTypes = {
+  SET_CURRENT_USER: `${storeName}.SET_CURRENT_USER`,
 };
+
 export default actionTypes;

@@ -1,7 +1,7 @@
 import { Link as RouterLink } from 'react-router-dom';
 import { Flex, Link } from '@chakra-ui/react';
 
-const Header: React.FC = () => {
+const Header = () => {
   return (
     <Flex
       as="header"
