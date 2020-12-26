@@ -18,7 +18,7 @@ export function setupPassport(): void {
           const userDocument: UserDocument = await UserModel.findOne({ email });
 
           if (!userDocument) {
-            return done(null, false, { message: 'User not found' });
+            return done(new Error('User not found'), false);
           }
 
           const validate: boolean = await userDocument.isValidPassword(
@@ -26,7 +26,7 @@ export function setupPassport(): void {
           );
 
           if (!validate) {
-            return done(null, false, { message: 'Wrong Password' });
+            return done(new Error('Wrong Password'), false);
           }
 
           const user = {

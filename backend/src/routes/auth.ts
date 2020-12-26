@@ -7,10 +7,12 @@ import config from '../config.json';
 const router: Router = express.Router();
 
 router.post('/login', (req: Request, res: Response, next: NextFunction) => {
-  passport.authenticate('local', (err, user, message): Response | void => {
+  passport.authenticate('local', (err, user): Response | void => {
     try {
       if (err || !user) {
-        return res.send(message.message);
+        console.log(err.message);
+        
+        return res.status(401).send(err.message);
       }
 
       req.login(user, { session: false }, (error): Response | void => {
